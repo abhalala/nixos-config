@@ -9,12 +9,12 @@
       monitor = "";
 
       env = [
-        "XDG_CURRENT_DESKTOP,Hyprland"
-        "XDG_SESSION_TYPE,wayland"
-        "XDG_SESSION_DESKTOP,Hyprland"
-        "XCURSOR_SIZE,36"
-        "QT_QPA_PLATFORM,wayland"
-        "XDG_SCREENSHOTS_DIR,~/Pictures/Screenshots"
+        "XDG_CURRENT_DESKTOP, Hyprland"
+        "XDG_SESSION_TYPE, wayland"
+        "XDG_SESSION_DESKTOP, Hyprland"
+        "XCURSOR_SIZE, 36"
+        "QT_QPA_PLATFORM, wayland"
+        "XDG_SCREENSHOTS_DIR, ~/Pictures/Screenshots"
       ];
 
       debug = {
@@ -202,7 +202,7 @@
         "$mainMod, W, exec, pkill -SIGUSR2 waybar"
 
         # Disable all effects
-        "$mainMod Shift, G, exec, ~/.config/hypr/gamemode.sh "
+        "$mainMod SHIFT, G, exec, ~/.config/hypr/gamemode.sh "
       ];
 
       # Move/resize windows with mainMod + LMB/RMB and dragging

@@ -2,7 +2,8 @@
   description = "My NixOS configuration";
 
   inputs = {
-
+    # TODO: Fix this hot mess of using unstable as the primary and make the stable as primary while still keeping unstable as a secondary option "Latest" 
+    # Or better, keep stable as the main for critical environments: 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
@@ -40,6 +41,24 @@
         };
 
       nixosConfigurations.ziggy = nixpkgs.lib.nixosSystem
+        {
+
+          specialArgs = {
+            pkgs-stable = import nixpkgs-stable {
+              inherit system;
+              config.allowUnfree = true;
+            };
+            inherit inputs system;
+          };
+
+          modules = [
+            ./nixos/ziggy/configuration.nix
+          ];
+
+        };
+
+
+      nixosConfigurations.franky = nixpkgs.lib.nixosSystem
         {
 
           specialArgs = {
