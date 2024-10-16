@@ -29,9 +29,7 @@
 
         follow_mouse = 1;
 
-        touchpad = {
-          natural_scroll = false;
-        };
+        touchpad = { natural_scroll = false; };
 
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
       };
@@ -53,8 +51,8 @@
 
         blur = {
           enabled = true;
-          size = 16;
-          passes = 2;
+          size = 5;
+          passes = 1;
           new_optimizations = true;
         };
 
@@ -81,13 +79,12 @@
       };
 
       dwindle = {
-        pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+        pseudotile =
+          true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
         preserve_split = true; # you probably want this
       };
 
-      master = {
-        new_is_master = true;
-      };
+      master = { new_is_master = true; };
 
       gestures = {
         workspace_swipe = true;
@@ -105,10 +102,7 @@
         disable_hyprland_logo = true;
       };
 
-      windowrule = [
-        "float, ^(imv)$"
-        "float, ^(mpv)$"
-      ];
+      windowrule = [ "float, ^(imv)$" "float, ^(mpv)$" ];
 
       exec-once = [
         "swww init"
@@ -193,8 +187,10 @@
         # Configuration files
         ''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
         ''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
-        ''$mainMod SHIFT, H, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/hyprland.nix"''
-        ''$mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/waybar.nix''
+        ''
+          $mainMod SHIFT, H, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/hyprland.nix"''
+        ''
+          $mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/waybar.nix''
         '', Print, exec, grim -g "$(slurp)" - | swappy -f -''
 
         # Waybar

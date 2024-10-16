@@ -1,6 +1,6 @@
 {
   services.fstrim = {
     enable = true;
-    interval = "weekly";
+    interval = "daily";
   };
 }

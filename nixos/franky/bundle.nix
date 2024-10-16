@@ -1,6 +1,6 @@
 {
   imports = [
-  ../modules/audio.nix
+    ../modules/audio.nix
     ../modules/bluetooth.nix
     ../modules/bootloader.nix
     ../modules/environment.nix

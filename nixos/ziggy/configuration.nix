@@ -1,10 +1,7 @@
 { inputs, ... }: {
 
-  imports = [
-    ./hardware-configuration.nix
-    ./packages.nix
-    ../modules/bundle.nix
-  ];
+  imports =
+    [ ./hardware-configuration.nix ./packages.nix ../modules/bundle.nix ];
 
   networking.hostName = "ziggy";
 

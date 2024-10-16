@@ -6,6 +6,7 @@
 
     users.abhalala = {
       isNormalUser = true;
+      email = [ "abhalala@asu.edu" "a@bhalala.org" "ansh_bhalala@icloud.com" ];
       description = "Ansh Bhalala";
       extraGroups = [ "networkmanager" "video" "wheel" "input" "libvirtd" ];
       packages = with pkgs; [ ];

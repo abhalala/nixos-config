@@ -1,18 +1,15 @@
 {
   description = "My NixOS configuration";
 
-  inputs = {
-    # TODO: Fix this hot mess of using unstable as the primary and make the stable as primary while still keeping unstable as a secondary option "Latest" 
-    # Or better, keep stable as the main for critical environments: 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+  inputs.unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+  inputs.snowfall-lib = { url = "github:snowfallorg/lib"; };
 
+  inputs.home-manager = {
+    url = "github:nix-community/home-manager";
+    inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, nixpkgs-stable, home-manager, ... }@inputs:
@@ -20,60 +17,49 @@
     let
       system = "x86_64-linux";
       user = "abhalala";
-    in
-    {
+    in {
 
-      nixosConfigurations.murphy = nixpkgs.lib.nixosSystem
-        {
+      nixosConfigurations.murphy = nixpkgs.lib.nixosSystem {
 
-          specialArgs = {
-            pkgs-stable = import nixpkgs-stable {
-              inherit system;
-              config.allowUnfree = true;
-            };
-            inherit inputs system;
+        specialArgs = {
+          pkgs-stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
           };
-
-          modules = [
-            ./nixos/murphy/configuration.nix
-          ];
-
+          inherit inputs system;
         };
 
-      nixosConfigurations.ziggy = nixpkgs.lib.nixosSystem
-        {
+        modules = [ ./nixos/murphy/configuration.nix ];
 
-          specialArgs = {
-            pkgs-stable = import nixpkgs-stable {
-              inherit system;
-              config.allowUnfree = true;
-            };
-            inherit inputs system;
+      };
+
+      nixosConfigurations.ziggy = nixpkgs.lib.nixosSystem {
+
+        specialArgs = {
+          pkgs-stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
           };
-
-          modules = [
-            ./nixos/ziggy/configuration.nix
-          ];
-
+          inherit inputs system;
         };
 
+        modules = [ ./nixos/ziggy/configuration.nix ];
 
-      nixosConfigurations.franky = nixpkgs.lib.nixosSystem
-        {
+      };
 
-          specialArgs = {
-            pkgs-stable = import nixpkgs-stable {
-              inherit system;
-              config.allowUnfree = true;
-            };
-            inherit inputs system;
+      nixosConfigurations.franky = nixpkgs.lib.nixosSystem {
+
+        specialArgs = {
+          pkgs-stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
           };
-
-          modules = [
-            ./nixos/ziggy/configuration.nix
-          ];
-
+          inherit inputs system;
         };
+
+        modules = [ ./nixos/ziggy/configuration.nix ];
+
+      };
 
       homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
